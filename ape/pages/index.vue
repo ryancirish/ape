@@ -9,7 +9,7 @@
             </a>
           </div>
           <div class="dtc v-mid tr pa3">
-            <NuxtLink class="f4 fw4 hover-white no-underline white-90 dn dib-l pv2 ph3 grow dib" to="/blog">blog</NuxtLink>
+            <NuxtLink class="f4 fw4 hover-white no-underline white-90 dn dib-l pv2 ph3 grow dib" to="/transact" >get ape token</NuxtLink>
             <NuxtLink class="f4 fw4 hover-white no-underline white-90 dn dib-l pv2 ph3 grow dib" to="/about" >about</NuxtLink>
             <a class="f4 fw4 hover-white no-underline white-90 dib ml2 pv2 ph3 ba dib" href="#beta" >join us</a>
           </div>
