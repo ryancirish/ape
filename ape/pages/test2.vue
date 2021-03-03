@@ -19,7 +19,7 @@ export default {
   },
 
   async mounted() {
-
+  	// need a check for token before sending req for token
   	let q = this.$route.query.code
   	let s = this.$route.query.state
   	let inj = {
@@ -35,32 +35,34 @@ export default {
 	  }
 	}
 
+	let z
+	try {
+		z = await axios.post('https://www.moneybutton.com/oauth/v1/token', qs.stringify(inj))	
+	} catch(e) {
+		console.log(e)
+		// alert to login or somethin
+	}
 
-  	let z = await axios.post('https://www.moneybutton.com/oauth/v1/token', qs.stringify(inj))
-  	// handle error here
-  	this.test = z
-  // 		.then(response => {
-  // 			this.test = response.data
-  // 			console.log(response)
-  // 		})
-		// .catch((error) => {
-		//  console.log(error)
-		//  console.log('error ' + error);
-		// })
-  	// const AuthStr = 'Bearer '.concat(localStorage.getItem('mb_js_client:oauth_access_token'))
-  	
-  	// if (localStorage.getItem('mb_js_client:oauth_access_token')) {
-	  // 	axios.get('https://www.moneybutton.com/api/v1/auth/user_identity', { headers: { Authorization: AuthStr } })
-	  // 	 .then(response => {
-	  // 	     // If request is good...
-	  // 	     this.test = response.data
-	  // 	     console.log(response)
+	if(z && z.status  == 200) {
+		this.test = z.data
+		sessionStorage.setItem('mb_refresh_token', z.data.refresh_token)
+		sessionStorage.setItem('mb_access_token', z.data.access_token)
+		sessionStorage.setItem('mb_expiry', z.data.expires_in)
+	} 
+  	  	
+  	if (sessionStorage.getItem('mb_refresh_token')) {
+  		const AuthStr = 'Bearer '.concat(sessionStorage.getItem('mb_access_token'))
+	  	axios.get('https://www.moneybutton.com/api/v1/auth/user_identity', { headers: { Authorization: AuthStr } })
+	  	 .then(response => {
+	  	     // If request is good...
+	  	     this.test = response.data
+	  	     console.log(response)
 
-	  // 	  })
-	  // 	 .catch((error) => {
-	  // 	     console.log('error ' + error);
-	  // 	  })
-  	// }
+	  	  })
+	  	 .catch((error) => {
+	  	     console.log('error ' + error);
+	  	  })
+  	}
   }
 }
 </script>

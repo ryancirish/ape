@@ -18,3 +18,10 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Todo
+
+# make token test functional, rename page and have nav links to propose/proposals
+# propose page -> demo of proposal submission, write initial proposal on chain, store comments in db
+	- eventually comments on chain as well
+# proposals page -> look into marking the proposals with some kind of tag to be acheived from chain, or just link via db and pull tx data down
