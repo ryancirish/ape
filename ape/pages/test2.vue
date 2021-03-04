@@ -48,6 +48,7 @@ export default {
 		sessionStorage.setItem('mb_refresh_token', z.data.refresh_token)
 		sessionStorage.setItem('mb_access_token', z.data.access_token)
 		sessionStorage.setItem('mb_expiry', z.data.expires_in)
+		sessionStorage.setItem('mb_timestart', performance.now())
 	} 
   	  	
   	if (sessionStorage.getItem('mb_refresh_token')) {
