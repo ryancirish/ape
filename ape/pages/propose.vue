@@ -7,12 +7,15 @@
 
 
 			<div class="tc">
-				<h1 class="f1 tc dib mr4">new proposal</h1>
-				<article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 dib v-mid">
-				  <div class="tc">
+				<h1 class="f1 tc dib-ns mr4">new proposal</h1>
+				<article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 dib-ns v-mid">
+				  <div class="tc" v-if="fetchedUser">
 				    <img src="https://c402277.ssl.cf1.rackcdn.com/photos/18331/images/carousel_small/Mountain_Gorilla_Uganda_WW267058.jpg?1576515791" class="br-100 h4 w4 dib ba b--black-05 pa2" title="Photo of a kitty staring at you">
-				    <h1 class="f3 mb2">Mimi W.</h1>
-				    <h2 class="f5 fw4 gray mt0">CCO (Chief Cat Officer)</h2>
+				    <h1 class="f3 mb2">{{ fetchedUser.data.attributes.name }}</h1>
+				    <h2 class="f5 fw4 gray mt0">id: {{ fetchedUser.data.id }}</h2>
+				  </div>
+				  <div v-else>
+				  	<img src="../static/loading.gif">
 				  </div>
 				</article>
 			</div>
@@ -22,6 +25,7 @@
 </template>
 
 <script>
+	import axios from 'axios'
 export default {
 
   name: 'propose',
@@ -38,10 +42,25 @@ export default {
   methods: {
   	timeCheck(time) {
   		if (Math.round((performance.now() - time) / 1000) > 3600) {
+  			console.log('true')
   			return true
   		} else {
+  			console.log('false: ', Math.round((performance.now() - time) / 1000))
   			return false
   		}
+  	},
+
+  	getProfile(id, auth) {
+  		// yes im doing this all for a pfp but whatever
+  		// wait I have to refactor to add another permission to the scope
+  		let u = `https://www.moneybutton.com/api/v1/users/${id}/profile`
+  		axios.get(u, { headers: { Authorization: AuthStr } })
+  		  .then(response => {
+  		  	this.fetchedProfile = response.data
+  		  })
+  		  .catch(err => {
+  		  	console.log('error: ' + error)
+  		  })
   	}
   },
 
@@ -55,7 +74,19 @@ export default {
   		this.disp = true
   	} else {
   		console.log('token should be valid...')
-  		
+  		// could prob put this in vue datastore but meh do it on demand
+  		const AuthStr = 'Bearer '.concat(sessionStorage.getItem('mb_access_token'))
+
+  		//convert to try/catch, make it functional blah blah blah
+	  	axios.get('https://www.moneybutton.com/api/v1/auth/user_identity', { headers: { Authorization: AuthStr } })
+	  	 .then(response => {
+	  	     // If request is good...
+	  	     this.fetchedUser = response.data
+	  	     //this.getProfile(response.data.id, AuthStr) wait until scope is fixed
+	  	  })
+	  	 .catch((error) => {
+	  	     console.log('error ' + error);
+	  	  })  			
   		
   	}
   }
