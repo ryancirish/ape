@@ -1,6 +1,13 @@
 <template>
 	<div id="entry_success">
-		<h1>{{ test }}</h1>
+		<div class="measure-wide center" v-if="test">
+			<h1 class="f1 tc" v-if="data">you are logged in, {{ data.data.attributes.name }}</h1>
+			<div class="f3">
+				<NuxtLink class="db mb4" to="/propose"> new proposal </NuxtLink>
+				<NuxtLink class="db mb4" to="/proposals"> see proposals </NuxtLink>
+				<NuxtLink class="db mb4" to="/transact"> transact </NuxtLink>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -8,13 +15,15 @@
 	import axios from 'axios'
 	import qs from 'qs'
 	import { MoneyButtonClient } from '@moneybutton/api-client'
+	import moment from 'moment'
 export default {
 
   name: 'test2',
 
   data () {
     return {
-   	  test: ''
+   	  test: null,
+   	  data: ''
     }
   },
 
@@ -48,7 +57,7 @@ export default {
 		sessionStorage.setItem('mb_refresh_token', z.data.refresh_token)
 		sessionStorage.setItem('mb_access_token', z.data.access_token)
 		sessionStorage.setItem('mb_expiry', z.data.expires_in)
-		sessionStorage.setItem('mb_timestart', performance.now())
+		sessionStorage.setItem('mb_timestart', moment())
 	} 
   	  	
   	if (sessionStorage.getItem('mb_refresh_token')) {
@@ -56,9 +65,11 @@ export default {
 	  	axios.get('https://www.moneybutton.com/api/v1/auth/user_identity', { headers: { Authorization: AuthStr } })
 	  	 .then(response => {
 	  	     // If request is good...
-	  	     this.test = response.data
-	  	     console.log(response)
-
+	  	     if (response.status == 200) {
+	  	     	this.test = true
+	  	     	console.log('here')
+	  	     	this.data = response.data
+	  	     }
 	  	  })
 	  	 .catch((error) => {
 	  	     console.log('error ' + error);

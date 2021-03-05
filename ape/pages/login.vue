@@ -1,16 +1,19 @@
 <template>
 	<div class="measure-wide center tc">
-		<h1>you are already logged in.</h1>
-		<div class="f3">
-			<NuxtLink class="db mb4" to="/propose"> new proposal </NuxtLink>
-			<NuxtLink class="db mb4" to="/proposals"> see proposals </NuxtLink>
-			<NuxtLink class="db mb4" to="/transact"> transact </NuxtLink>
+		<div v-if="state">
+			<h1>you are already logged in.</h1>
+			<div class="f3">
+				<NuxtLink class="db mb4" to="/propose"> new proposal </NuxtLink>
+				<NuxtLink class="db mb4" to="/proposals"> see proposals </NuxtLink>
+				<NuxtLink class="db mb4" to="/transact"> transact </NuxtLink>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
 	import { MoneyButtonClient } from '@moneybutton/api-client'
+	import moment from 'moment'
 export default {
 
   name: 'test',
@@ -32,7 +35,9 @@ export default {
   	},
 
   	timeCheck(time) {
-  		if (Math.round((performance.now() - time) / 1000) > 3600) {
+  		let elapsedDuration = moment.duration(moment().diff(time))
+  		elapsedDuration = elapsedDuration.asMinutes()
+  		if (elapsedDuration > 59) {
   			return true
   		} else {
   			return false
