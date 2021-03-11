@@ -25,6 +25,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 	- save author so user can input link later if its that urgent
 	- maybe commit link on chain eventually i dunno 
 # proposals page -> look into marking the proposals with some kind of tag to be acheived from chain, or just link via db and pull tx data down
+# about page: add transact/propose page to about
 
 ## Done
 # make token test functional, rename page and have nav links to propose/proposals
