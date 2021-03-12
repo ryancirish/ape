@@ -215,7 +215,8 @@ export default {
     }
   },
 
-  mounted() {  	
+  mounted() {
+    
     //console.log(this.$fire.firestore.collection('proposals').add({test: 'test'}))
   	if (!sessionStorage.getItem('mb_refresh_token')) {
   		console.log('no token, running auth...')

@@ -29,6 +29,7 @@ export default {
 
   async mounted() {
   	// need a check for token before sending req for token
+  	console.log(this.$nuxt.context.from)
   	let q = this.$route.query.code
   	let s = this.$route.query.state
   	let inj = {
@@ -37,7 +38,7 @@ export default {
   		code: q,
   		redirect_uri: process.env.NUXT_ENV_CLIENT_REDIR
   	}
-  	console.log(inj)
+  	
   	const config = {
 	  headers: {
 	    'Content-Type': 'application/x-www-form-urlencoded'
