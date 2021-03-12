@@ -33,6 +33,11 @@ export default {
 		)
 		await client.handleAuthorizationResponse()
     const refresh_token = client.getRefreshToken()
+    client.authorizeWithAuthFlowResponse(
+          receivedQueryParameters,
+          expectedStateValue,
+          redirectUri
+    )
     sessionStorage.setItem('_refresh_token', refresh_token)
     console.log(client)
   	},

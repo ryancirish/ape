@@ -1,14 +1,10 @@
 <template>
 	<div id="entry_proposal" class="">		
 		<div class="w-90 center h-auto pb6">
-			<div v-if="disp" class="tc">
-				<h1>please <NuxtLink to="/login"> login </NuxtLink></h1>
-			</div>
-
-			<main v-if="!disp">
+			<main v-if="">
 				<div class="tc w-100 mb4">
 					<h1 class="f1 tc dib-ns mr4">new proposal</h1>
-					<article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 dib-ns v-mid">
+<!-- 					<article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10 dib-ns v-mid">
 					  <div class="tc" v-if="fetchedUser">
 					    <img src="https://c402277.ssl.cf1.rackcdn.com/photos/18331/images/carousel_small/Mountain_Gorilla_Uganda_WW267058.jpg?1576515791" class="br-100 h4 w4 dib ba b--black-05 pa2" title="Photo of a kitty staring at you">
 					    <div class="">
@@ -19,11 +15,14 @@
 					  <div v-else>
 					  	<img src="../static/loading.gif">
 					  </div>
-					</article>
+					</article> -->
 				</div>
 
 				<div class="w-100">
 					<div class="center w-50-ns">
+            <label class="f3 b db mb2">author</label>
+            <input class="input-reset ba b--black-20 pa2 mb2 db w-100" type="text" v-model="author">
+
 					  <label class="f3 b db mb2">proposal title</label>
 					  <input class="input-reset ba b--black-20 pa2 mb2 db w-100" type="text" v-model="title">
 
@@ -82,7 +81,8 @@ export default {
     	visButton: true,
     	metadata: null,
     	man: null,
-      typeSelect: 'text/plain'
+      typeSelect: 'text/plain',
+      author: ''
     }
   },
 
@@ -133,7 +133,7 @@ export default {
     	//time to calc if expired, may be a couple ms different from the tx time
     	let now = moment().format() 
     	let n = `time: ${now}  `
-    	let author = `author: ${this.fetchedUser.data.attributes.name}  `
+    	let author = `author: ${this.author}  `
     	let title = `title: ${this.title}  `
     	let expiry = `expiry: ${this.expIn} days  ` //eventually could timestamp exact expiry idk
 
@@ -216,38 +216,31 @@ export default {
   },
 
   mounted() {
-    
+
     //console.log(this.$fire.firestore.collection('proposals').add({test: 'test'}))
-  	if (!sessionStorage.getItem('mb_refresh_token')) {
-  		console.log('no token, running auth...')
-  		this.disp = true
+  	// if (!sessionStorage.getItem('mb_refresh_token')) {
+  	// 	console.log('no token, running auth...')
+  	// 	this.disp = true
   		
-  	} else if (!sessionStorage.getItem('mb_timestart') || this.timeCheck(sessionStorage.getItem('mb_timestart'))) {
-  		console.log('token expired, running auth...')
-  		this.disp = true
-  	} else {
-  		console.log('token should be valid...')
-  		// could prob put this in vue datastore but meh do it on demand
-  		const AuthStr = 'Bearer '.concat(sessionStorage.getItem('mb_access_token'))
+  	// } else if (!sessionStorage.getItem('mb_timestart') || this.timeCheck(sessionStorage.getItem('mb_timestart'))) {
+  	// 	console.log('token expired, running auth...')
+  	// 	this.disp = true
+  	// } else {
+  	// 	console.log('token should be valid...')
+  	// 	// could prob put this in vue datastore but meh do it on demand
+  	// 	const AuthStr = 'Bearer '.concat(sessionStorage.getItem('mb_access_token'))
 
-  		//convert to try/catch, make it functional blah blah blah
-	  	axios.get('https://www.moneybutton.com/api/v1/auth/user_identity', { headers: { Authorization: AuthStr } })
-	  	 .then(response => {
-	  	     // If request is good...
-	  	     this.fetchedUser = response.data
-	  	     //this.getProfile(response.data.id, AuthStr) wait until scope is fixed
-	  	  })
-	  	 .catch((error) => {
-	  	     console.log('error ' + error);
-	  	  })  			
-  		
-  	}
-  },
-
-  watch: {
-    name(newName, oldName) {
-      console.log(newName, oldName)
-    }
+  	// 	//convert to try/catch, make it functional blah blah blah
+	  // 	axios.get('https://www.moneybutton.com/api/v1/auth/user_identity', { headers: { Authorization: AuthStr } })
+	  // 	 .then(response => {
+	  // 	     // If request is good...
+	  // 	     this.fetchedUser = response.data
+	  // 	     //this.getProfile(response.data.id, AuthStr) wait until scope is fixed
+	  // 	  })
+	  // 	 .catch((error) => {
+	  // 	     console.log('error ' + error);
+	  // 	  })  			  		
+  	// }
   },
 
   computed: {
