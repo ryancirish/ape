@@ -25,13 +25,13 @@ export default {
   },
 
   methods: {
-  	auth() {
+  	async auth() {
   		const client = new MoneyButtonClient(process.env.NUXT_ENV_CLIENT_ID)
   		client.requestAuthorization(
 		  'auth.user_identity:read',
 		  process.env.NUXT_ENV_CLIENT_REDIR
 		)
-		client.handleAuthorizationResponse()
+		await client.handleAuthorizationResponse()
     const refresh_token = client.getRefreshToken()
     sessionStorage.setItem('_refresh_token', refresh_token)
     console.log(client)
