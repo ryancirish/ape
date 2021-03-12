@@ -29,7 +29,6 @@ export default {
 
   async mounted() {
   	// need a check for token before sending req for token
-  	console.log(this.$nuxt.context.from)
   	let q = this.$route.query.code
   	let s = this.$route.query.state
   	let inj = {
@@ -50,7 +49,7 @@ export default {
 		z = await axios.post('https://www.moneybutton.com/oauth/v1/token', qs.stringify(inj))	
 	} catch(e) {
 		console.log(e)
-		console.log(inj)
+		
 		// alert to login or somethin
 	}
 

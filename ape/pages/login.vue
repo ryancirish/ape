@@ -32,6 +32,8 @@ export default {
 		  process.env.NUXT_ENV_CLIENT_REDIR
 		)
 		client.handleAuthorizationResponse()
+    const refresh_token = client.getRefreshToken()
+    sessionStorage.setItem('_refresh_token', refresh_token)
   	},
 
   	timeCheck(time) {
