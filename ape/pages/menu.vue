@@ -37,7 +37,7 @@ export default {
   		code: q,
   		redirect_uri: process.env.NUXT_ENV_CLIENT_REDIR
   	}
-
+  	console.log(inj)
   	const config = {
 	  headers: {
 	    'Content-Type': 'application/x-www-form-urlencoded'
@@ -49,6 +49,7 @@ export default {
 		z = await axios.post('https://www.moneybutton.com/oauth/v1/token', qs.stringify(inj))	
 	} catch(e) {
 		console.log(e)
+		console.log(inj)
 		// alert to login or somethin
 	}
 
