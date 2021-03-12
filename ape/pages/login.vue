@@ -34,6 +34,7 @@ export default {
 		client.handleAuthorizationResponse()
     const refresh_token = client.getRefreshToken()
     sessionStorage.setItem('_refresh_token', refresh_token)
+    console.log(client)
   	},
 
   	timeCheck(time) {
