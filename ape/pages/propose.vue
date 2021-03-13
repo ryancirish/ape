@@ -205,7 +205,7 @@ export default {
         .then(() => {
           console.log('added')
           this.email = ''
-          this.$router.push('chainTx')                          
+          this.$router.push({path: 'chainTx'})
         })
         .catch(e => {
           console.log(e)
