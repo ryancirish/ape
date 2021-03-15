@@ -1,3 +1,3 @@
 # ape.capital
 
-private for now, hold the blog stuff will make this public
+Let us know in PR if nuxt config has to be changed, leaving out of version control atm for keys
