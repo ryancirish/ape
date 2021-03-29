@@ -5,7 +5,7 @@
 		</div>
 		<div class="center measure-wide tc">
 			<h1 class="f1">apes together stronk</h1>
-			<p class="f3">We will send you your tokens shortly. For support <a href="https://twetch.app/u/34859">message on twetch</a></p>
+			<p class="f3">We will send you your tokens shortly. For support <a href="https://twitter.com/DaoGorilla">message on twitter</a></p>
 		</div>
 	</div>
 </template>

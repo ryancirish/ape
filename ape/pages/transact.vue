@@ -80,7 +80,7 @@ export default {
 
     redir() {
     	console.log('complete, redirecting...')
-    	this.$router.push({ path: '/apesanity' })
+    	this.$router.push({ path: '/thankyou' })
     }
   },
 
