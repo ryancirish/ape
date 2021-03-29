@@ -172,6 +172,7 @@ export default {
           localStorage.setItem('prop_feeAmountUid', arg.userId)
           localStorage.setItem('prop_link', this.link)
           localStorage.setItem('prop_title', this.title)
+          localStorage.setItem('prop_expiry', this.expIn)
           
           const pkg = `createdAt: ${arg.createdAt}` + "\n" + `amount: ${arg.amount} ${arg.currency}` + "\n"
           + `fee amount usd: ${arg.feeAmountUsd}` + "\n" + `fee amount usd: ${arg.feeAmountUsd}` + "\n" + `amount: ${arg.amount}` + "\n"  + `txid: ${arg.txid}` + "\n"  + `status: ${arg.status}`
@@ -200,7 +201,8 @@ export default {
           status: localStorage.getItem('prop_feeAmountStatus'),
           uid: localStorage.getItem('prop_feeAmountUid'),
           link: this.link,
-          title: this.title
+          title: this.title,
+          expiry: this.expIn
         })
         .then(() => {
           console.log('added')
@@ -209,8 +211,6 @@ export default {
         })
         .catch(e => {
           console.log(e)
-          // alert(e.message)
-          // catch all log here
         })      
     }
   },

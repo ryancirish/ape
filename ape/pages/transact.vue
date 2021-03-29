@@ -5,7 +5,7 @@
 		</div>
 		<div class="measure center">
 			<h1 class="tc">get ape tokens</h1>
-			<p class="tc">amount: </p>
+			<p class="tc">amount (BSV): </p>
 			<div class="tc">
 				<input class="center w-20" type="text" v-model="amount">
 			</div>
@@ -14,7 +14,7 @@
 			      to="38436@moneybutton.com"
 			      class="tc"
 			      :amount="amount"
-			      currency="USD"
+			      currency="BSV"
 			      label="get ape tokens"
 			      v-if="validAmount"
 			      @payment="handlePayment"
@@ -88,11 +88,10 @@ export default {
 
   	validAmount() {
   		if (this.amount) {
-	  		if (this.isNumeric(this.amount)) {
-	  			return parseInt(this.amount)	
+	  		if (parseFloat(this.amount)) {
+	  			return parseFloat(this.amount)	
 	  		}
   		}
-  		
   	}
   }
 

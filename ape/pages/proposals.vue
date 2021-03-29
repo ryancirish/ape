@@ -2,7 +2,7 @@
 	<div id="entry_proposals">
 		<div class="w-90 center h-auto pb6">
 			<h1 class="tc">proposals</h1>
-			<div v-for="proposal in man" v-if="man" class="measure-wide center mt5">
+			<div v-for="proposal in sortDex" v-if="sortDex" class="measure-wide center mt5">
 				<h1>{{ proposal.title }}</h1>
 				<h3>{{ proposal.createdAtf }}</h3>
 				<!-- need expirty here -->
@@ -23,7 +23,8 @@ export default {
 
   data () {
     return {
-    	man: []  	
+    	man: [],
+      sortDex: null
     }
   },
 
@@ -32,17 +33,44 @@ export default {
   		return this.$fire.firestore.collection('proposals').get()
   			.then(r => {
   				r.docs.forEach(e => {
-  					this.man.push({createdAtf: moment(e.data().createdAt).format('LLLL') ,...e.data()})
+            var expiry = moment(e.data().createdAt).add(parseInt(e.data().expiry), 'd')
+            var isafter = moment().isBefore(expiry)
+  					this.man.push({createdAtf: moment(e.data().createdAt).format('LLLL') ,...e.data(), isExpired: isafter})
   				})
-  				
+          this.sortDate()
+          this.sortDex = this.man
   			})
   		
-  	}
+  	},
+
+    sortDate() {
+      this.man.sort((a, b) => {
+        return moment(a.createdAt).diff(b.createdAt)
+      })      
+    },
+
+    sortExpiry() {
+      this.man.sort((a, b) => {
+        return moment(a.createdAt).diff(b.createdAt)
+      })
+    },
+
+    sortExpiry() {
+      this.man.sort((a, b) => {
+        return moment(a.createdAt).diff(b.createdAt)
+      })
+    }  
   },
 
   mounted() {
   	this.source()
   },
+
+  computed: {
+    sortedItems: function() {
+      return this.man.sort((a, b) => new Date(a.date) - new Date(b.date))
+    }
+  }
 
 
 }
