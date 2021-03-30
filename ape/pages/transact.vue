@@ -5,7 +5,7 @@
 		</div>
 		<div class="measure center">
 			<h1 class="tc">get ape tokens</h1>
-			<p class="tc">amount (BSV): </p>
+			<p class="tc">amount in APE (1 APE = .005 BSV): </p>
 			<div class="tc">
 				<input class="center w-20" type="text" v-model="amount">
 			</div>
@@ -13,7 +13,7 @@
 				<MoneyButton
 			      to="38436@moneybutton.com"
 			      class="tc"
-			      :amount="amount"
+			      :amount="amountR"
 			      currency="BSV"
 			      label="get ape tokens"
 			      v-if="validAmount"
@@ -92,6 +92,10 @@ export default {
 	  			return parseFloat(this.amount)	
 	  		}
   		}
+  	},
+
+  	amountR() {
+  		return parseFloat(this.amount) * .005
   	}
   }
 
